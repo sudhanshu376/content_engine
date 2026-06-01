@@ -1,0 +1,32 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+Scripts/
+venv/
+.venv/
+
+# Generated Assets
+assets/audio/
+assets/video/
+assets/images/
+
+# Generated Output
+output/
+
+# Logs
+logs/
+
+# Temporary Files
+temp/
+
+# VS Code
+.vscode/
+
+# OS Files
+.DS_Store
+Thumbs.db
