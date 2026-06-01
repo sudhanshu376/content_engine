@@ -26,6 +26,11 @@ Requirements:
 * Each scene must contain exactly one visual concept.
 Never combine multiple visuals in one query.
 
+For MVP_v2, every scene must include:
+"scene_type": "stock"
+All scenes should currently default to "stock".
+Future scene types such as graphic, logo and screenshot will be added later.
+
 Return ONLY valid JSON.
 
 {
@@ -34,6 +39,7 @@ Return ONLY valid JSON.
 "script":"",
 "scenes":[
 {
+"scene_type":"stock",
 "narration":"",
 "visual_query":""
 }

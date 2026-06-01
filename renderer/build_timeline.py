@@ -46,6 +46,10 @@ for i, scene in enumerate(
             duration,
             2
         ),
+        "scene_type": scene.get(
+        "scene_type",
+        "stock"
+        ),
         "narration": scene["narration"],
         "visual_query": scene["visual_query"]
     })
