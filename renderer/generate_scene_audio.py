@@ -4,6 +4,8 @@ from pathlib import Path
 
 import edge_tts
 
+from run_manager import get_latest_run
+
 VOICE = "en-US-AvaNeural"
 
 async def generate_audio(text, output_file):
@@ -18,17 +20,18 @@ async def generate_audio(text, output_file):
 
 
 async def main():
-
+    run_dir = get_latest_run()
+    print(f"Using run: {run_dir.name}")
     with open(
-        "output/content_spec.json",
-        "r",
-        encoding="utf-8"
+    run_dir / "content_spec.json",
+    "r",
+    encoding="utf-8"
     ) as f:
         content = json.load(f)
 
     scenes = content["scenes"]
 
-    audio_dir = Path("assets/audio")
+    audio_dir = run_dir / "audio"
     audio_dir.mkdir(
         parents=True,
         exist_ok=True

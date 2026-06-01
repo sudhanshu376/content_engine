@@ -2,9 +2,15 @@ import json
 from pathlib import Path
 
 from mutagen.mp3 import MP3
+from run_manager import get_latest_run
+
+run_dir = get_latest_run()
+print(
+    f"Using run: {run_dir.name}"
+)
 
 with open(
-    "output/content_spec.json",
+    run_dir / "content_spec.json",
     "r",
     encoding="utf-8"
 ) as f:
@@ -14,7 +20,7 @@ scenes = content["scenes"]
 
 timeline = []
 
-audio_dir = Path("assets/audio")
+audio_dir = run_dir / "audio"
 
 current_time = 0
 
@@ -56,12 +62,8 @@ for i, scene in enumerate(
 
     current_time += duration
 
-Path("output").mkdir(
-    exist_ok=True
-)
-
 with open(
-    "output/timeline.json",
+    run_dir / "timeline.json",
     "w",
     encoding="utf-8"
 ) as f:
@@ -73,5 +75,5 @@ with open(
     )
 
 print(
-    "Saved timeline.json"
+    f"Saved: {run_dir / 'timeline.json'}"
 )

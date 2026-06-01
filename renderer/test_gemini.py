@@ -1,5 +1,6 @@
 import os
 import json
+from run_manager import create_run
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -34,13 +35,15 @@ raw_text = raw_text.strip()
 
 content_spec = json.loads(raw_text)
 
-output_dir = Path("output")
-output_dir.mkdir(exist_ok=True)
+run_id, run_dir = create_run(topic)
 
-output_file = output_dir / "content_spec.json"
+output_file = run_dir / "content_spec.json"
 
 with open(output_file, "w", encoding="utf-8") as f:
     json.dump(content_spec, f, indent=2)
+
+print("\nRun ID:")
+print(run_id)
 
 print("\nSaved:")
 print(output_file.resolve())

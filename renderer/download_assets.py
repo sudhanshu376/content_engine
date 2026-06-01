@@ -4,6 +4,7 @@ from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
+from run_manager import get_latest_run
 
 load_dotenv()
 
@@ -12,16 +13,26 @@ PEXELS_API_KEY = os.getenv("PEXELS_API_KEY")
 if not PEXELS_API_KEY:
     raise Exception("PEXELS_API_KEY not found")
 
+run_dir = get_latest_run()
+
+print(
+    f"Using run: {run_dir.name}"
+)
+
 headers = {
     "Authorization": PEXELS_API_KEY
 }
 
-with open("output/content_spec.json", "r", encoding="utf-8") as f:
+with open(
+    run_dir / "content_spec.json",
+    "r",
+    encoding="utf-8"
+) as f:
     content = json.load(f)
 
 scenes = content["scenes"]
 
-base_dir = Path("assets/video")
+base_dir = run_dir / "video"
 base_dir.mkdir(parents=True, exist_ok=True)
 
 for scene_index, scene in enumerate(scenes, start=1):

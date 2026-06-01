@@ -7,9 +7,16 @@ from moviepy import (
     concatenate_videoclips,
     concatenate_audioclips
 )
+from run_manager import get_latest_run
+
+run_dir = get_latest_run()
+
+print(
+    f"Using run: {run_dir.name}"
+)
 
 with open(
-    "output/timeline.json",
+    run_dir / "timeline.json",
     "r",
     encoding="utf-8"
 ) as f:
@@ -24,14 +31,16 @@ for scene in timeline:
     duration = scene["duration"]
 
     video_file = (
-        Path("assets/video")
-        / f"scene_{scene_num}"
-        / "clip_1.mp4"
+        run_dir
+    / "video"
+    / f"scene_{scene_num}"
+    / "clip_1.mp4"
     )
 
     audio_file = (
-        Path("assets/audio")
-        / f"scene_{scene_num}.mp3"
+        run_dir
+    / "audio"
+    / f"scene_{scene_num}.mp3"
     )
 
     if not video_file.exists():
@@ -87,7 +96,7 @@ final_video = concatenate_videoclips(
 )
 
 output_file = (
-    Path("output")
+    run_dir
     / "final_video_v2.mp4"
 )
 
